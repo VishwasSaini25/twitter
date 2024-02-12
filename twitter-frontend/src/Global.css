@@ -141,3 +141,30 @@
 .tweet-form button{
   margin-left: 0;
 }
+
+/* user category */
+.userCategory-section{
+  height: 100%;
+}
+.userCategory{
+  margin: auto;
+  width: 40%;
+  text-align: center;
+  margin-top:1%
+}
+.user-btns button{
+  margin:0;
+  margin-top: 2%;
+  width: 28%;
+  position: relative;
+  padding: 3%;
+  border: none;
+  border-top-left-radius: 30px; 
+  border-top-right-radius: 30px;   
+}
+.user-submit{
+  padding: 3%;
+  margin: auto;
+  margin-top: 2%;
+  width: 55%;
+}

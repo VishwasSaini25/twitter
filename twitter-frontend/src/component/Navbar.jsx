@@ -23,7 +23,7 @@ const Navbar = () => {
     }
     return <>
         <div className="navbar">
-            <div className="navbrand">
+            <div onClick={() => History('/usercategory')} className="navbrand">
                 <h1>Creator Alias</h1>
             </div>
             <div className="nav-btns">

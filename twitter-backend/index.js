@@ -16,7 +16,7 @@ import { Strategy as TwitterStrategy } from 'passport-twitter';
 import session from 'express-session';
 import generateToken from "./auth.js";
 import { hash, compare } from 'bcrypt';
-var name;
+var username;
 
 
 
@@ -121,10 +121,22 @@ app.post('/logout', (req, res) => {
   }
   });
 
-
+app.post('/usercategory', async (req,res) => {
+  const {data,email} = req.body
+  try{
+    const user = await UserDefault.findOne({ email });
+    if(user && (data === user.osecret || data === user.esecret)){
+      return res.status(200).send("valid secret");
+    } else {
+      return res.status(401).json({ error: 'Invalid secret' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed' });
+  }
+})
 // Routes
 app.post('/tweet', upload.single('media'), async (req, res) => {
-  const user = await User.findOne({ name });
+  const user = await User.findOne({ username });
   console.log(user);
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
@@ -166,8 +178,9 @@ app.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   function (req, res) {
     const userData = JSON.stringify(req.user, undefined, 2);
-    name = req.user.username;    
-    res.redirect(`http://localhost:3000/usercategory?username=${name}`);
+    username = req.user.username;    
+    console.log(username);
+    res.redirect(`http://localhost:3000/usercategory?username=${username}`);
     console.log('Success', { userData });
   });
 

@@ -1,22 +1,10 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import React, { useState } from 'react';
 const Tweet = () => {
     const [tweet, setTweet] = useState('');
     const [file, setFile] = useState(null);
-    const query = useQuery();
-    const [userData, setUserData] = useState('');
+    
 
-    function useQuery() {
-        return new URLSearchParams(useLocation().search);
-    }
-    useEffect(() => {
-        const dataParam = query.get("username");
-        console.log(dataParam);
-        if (dataParam) {
-            setUserData(dataParam);
-        }
-    }, []);
 
     const postTweet = async (e) => {
         e.preventDefault();
@@ -33,7 +21,7 @@ const Tweet = () => {
         }
     };
     return <>
-        {userData ?
+        {/* {userData ? */}
             <div className="tweet-section">
                 <div className='tweet'>
                         <div className='tweet-form'>
@@ -52,8 +40,8 @@ const Tweet = () => {
                         </div>
                 </div>
             </div>
-            : <div>Loading or no user data...</div>
-        }
+             {/* : <div>Loading or no user data...</div> */}
+        {/* } */}
     </>
 }
 export default Tweet;
