@@ -9,10 +9,13 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
+    tusername: {
+        type:String,
+        required:true, 
+    },
     osecret:{
         type:String,
         required:true, 
-
     },
     esecret:{
         type:String,

@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import axios from 'axios';
 import User from './model/User.js';
 import UserDefault from './model/UserDefault.js';
 import express, { json } from 'express';
@@ -7,6 +8,7 @@ import mongoose from 'mongoose';
 import { TwitterApi } from 'twitter-api-v2';
 import cors from "cors";
 import multer from 'multer';
+import nodemailer from "nodemailer";
 const app = express();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -16,7 +18,9 @@ import { Strategy as TwitterStrategy } from 'passport-twitter';
 import session from 'express-session';
 import generateToken from "./auth.js";
 import { hash, compare } from 'bcrypt';
+import { tweetData,imagesData } from './imagesData.js';
 var username;
+var useremail;
 
 
 
@@ -78,32 +82,34 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-// User Routes
+  // User Routes
 
 // Register endpoint
 app.post('/register', async (req, res) => {
-  const { email, password, osecret, esecret } = req.body;
+  const { email, password, osecret, esecret,tusername } = req.body;
+  useremail = email;
   const hashedPassword = await hash(password, 10);
   try {
     const user = await UserDefault.findOne({ email });
     if(user){
         return res.status(401).json({ error: 'User Already Existed' });
     } else {
-        await UserDefault.create({ email, password: hashedPassword,osecret,esecret });
+        await UserDefault.create({ email, password: hashedPassword,osecret,esecret,tusername });
         res.status(201).json({ user });
     }
   } catch (error) {
     res.status(500).json({ error: 'Registration failed' });
   }
 });
-
+// login
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  useremail = email;
+  console.log(useremail);
   try {
     const user = await UserDefault.findOne({ email });
     if (user && (await compare(password, user.password))) {
       const token = generateToken(user);
-      console.log(token);
       return res.status(200).json({ user,token });
     } else {
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -112,7 +118,7 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 });
-
+// logout
 app.post('/logout', (req, res) => {
   try{
     return res.status(200).json({ message: 'Logout successful' });
@@ -120,13 +126,16 @@ app.post('/logout', (req, res) => {
     res.status(500).json({ error: 'Logout failed' });
   }
   });
-
+// user category
 app.post('/usercategory', async (req,res) => {
-  const {data,email} = req.body
+  const {data} = req.body
+  const email = useremail;
+  console.log(useremail);
   try{
     const user = await UserDefault.findOne({ email });
+    console.log(user);
     if(user && (data === user.osecret || data === user.esecret)){
-      return res.status(200).send("valid secret");
+      return res.status(200).send({email,message: "valid secret"});
     } else {
       return res.status(401).json({ error: 'Invalid secret' });
     }
@@ -134,10 +143,48 @@ app.post('/usercategory', async (req,res) => {
     res.status(500).json({ error: 'Failed' });
   }
 })
+
+// email sender
+ 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'vishersaini11@gmail.com',
+    pass: 'wauiqpsbovgzzpot',
+  }
+});
+
+
+app.post('/send-email', (req, res) => {
+  const { mediaUrl,tweet } = req.body;
+  imagesData.push(mediaUrl);
+  tweetData.push(tweet)
+  const allowUrl = `http://localhost:3000/allowtweet?mediaurl=${mediaUrl}&tweet=${tweet}`;
+  console.log(useremail);
+  const mailOptions = {
+      from: 'vishersaini11@gmail.com',
+      to: useremail,
+      subject: 'Verify your editor upload',
+      html: `<p>Check out this awesome media: <a href="${mediaUrl}">Click Here</a></p>
+      <p>Check out this tweet: ${tweet}</p>
+      <p>Do you approve this content?</p>
+      <a href="${allowUrl}" >Allow</a>  
+      <a>Reject</a>
+      `,
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Email sent: ' + info.response);
+      return res.status(200).json({imagesData,tweetData});
+    });
+});
+
+
 // Routes
 app.post('/tweet', upload.single('media'), async (req, res) => {
   const user = await User.findOne({ username });
-  console.log(user);
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
@@ -167,6 +214,42 @@ app.post('/tweet', upload.single('media'), async (req, res) => {
   }
 });
 
+
+app.post('/tweetallow', async (req,res) => {
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  try {
+    // Twitter client
+    const twitterClient = new TwitterApi({
+      appKey: process.env.API_KEY,
+      appSecret: process.env.API_SECRET,
+      accessToken: user.token,
+      accessSecret: user.tokenSecret,
+    });
+    const { tweet,cloudinaryUrl } = req.body;
+    const tweetOptions = {
+      text: tweet,
+    } 
+    if(cloudinaryUrl){
+      const mediaResponse = await axios.get(cloudinaryUrl,{responseType: 'arraybuffer'});
+      const mediaData = mediaResponse.data;
+      const mediaType = mediaResponse.headers['content-type'];
+
+      const uploadMedia = await twitterClient.v1.uploadMedia(Buffer.from(mediaData),{mimeType: mediaType});
+      tweetOptions.media={
+        media_ids: [uploadMedia]
+      };
+    }
+    const response = await twitterClient.v2.tweet(tweetOptions);
+    res.status(200).json({response,message: "success"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error posting tweet' });
+  }
+});
+
 app.get(
   '/auth/twitter',
   passport.authenticate('twitter', {
@@ -179,9 +262,8 @@ app.get('/auth/twitter/callback',
   function (req, res) {
     const userData = JSON.stringify(req.user, undefined, 2);
     username = req.user.username;    
-    console.log(username);
-    res.redirect(`http://localhost:3000/usercategory?username=${username}`);
-    console.log('Success', { userData });
+    res.redirect(`http://localhost:3000/usercategory`);
+    console.log('Success');
   });
 
 

@@ -6,9 +6,12 @@ import Tweet from "./component/Tweet";
 import './Global.css';
 import { Route, Routes, useNavigate,useLocation } from 'react-router-dom';
 import VerifyOwnerEditor from './component/VerifyOwnerEditor';
+import EditorUpload from './component/EditorUpload';
+import History from './component/History';
+import AllowTweet from './component/AllowTweet';
 function App() {
   const history = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const [authorize, setAuthorize] = useState(true);
 
   // check cookie available or not
@@ -27,6 +30,9 @@ function App() {
         <Route path='/home' element={<TwitterLogin />} />
         <Route path='/tweet' element={<Tweet />} />
         <Route path='/usercategory' element={<VerifyOwnerEditor />} />
+        <Route path='/editorupload' element={<EditorUpload />} />
+        <Route path='/history' element={<History />} />
+        <Route path='/allowtweet' element={<AllowTweet />} />
       </Routes>
     </div>
   );

@@ -9,10 +9,11 @@ const Signup = ({prop}) => {
     const [rpassword, setRPassword] = useState('');
     const [osecret, setOsecret] = useState('');
     const [esecret, setEsecret] = useState('');
+    const [tusername, settUsername] = useState('');
     const handleRegister = async () => {
-        if (email && password && osecret && esecret && (password === rpassword)) {
+        if (email && password && osecret && esecret && (password === rpassword) && tusername) {
             
-            await axios.post('http://localhost:5000/register', { email, password, osecret, esecret })
+            await axios.post('http://localhost:5000/register', { email, password, osecret, esecret,tusername })
                 .then(response => {
                     if (response.data) {
                         alert("Success, You must login now");
@@ -66,6 +67,11 @@ const Signup = ({prop}) => {
                                 placeholder="Enter editor secret" />
                         </div>
                     </div>
+                    <label>Twitter Username</label>
+                    <input type="text"
+                        value={tusername}
+                        onChange={(e) => settUsername(e.target.value)}
+                        placeholder="Enter you twitter username" />
                 </div>
                 <button onClick={handleRegister} className="register">Register</button>
                 <h5 style={{textAlign: 'center',marginBottom: '2%'}} onClick={ () => { 

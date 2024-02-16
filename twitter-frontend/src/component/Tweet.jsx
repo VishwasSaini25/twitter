@@ -26,7 +26,6 @@ const Tweet = () => {
                 <div className='tweet'>
                         <div className='tweet-form'>
                             <textarea
-                                // style={{ width: '75%',height: '50%', margin: 'auto' }}
                                 type="text"
                                 value={tweet}
                                 onChange={(e) => setTweet(e.target.value)}

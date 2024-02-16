@@ -168,3 +168,31 @@
   margin-top: 2%;
   width: 55%;
 }
+
+/* history */
+.history-section{
+  height: 100%;
+}
+.history{
+  margin-left: 10%;
+  margin-right: 10%;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 20px; 
+  padding: 20px;
+}
+.data{
+  margin: auto;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
+.column{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
