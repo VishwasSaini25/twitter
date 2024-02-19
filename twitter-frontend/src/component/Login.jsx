@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+
 const Login = ({prop}) => {
 
     const History = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [authorize,setAuthorize] = prop;
+    const [show, setShow] = useState(false);
+
     const handleLogin = async () => {
         if(email && password){
             await axios.post('http://localhost:5000/login', { email, password })
@@ -40,15 +45,24 @@ const Login = ({prop}) => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email" />
                 <label>Password:</label>
-                <input type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter you password" />
+                <InputGroup>
+                        <Input
+                             type={show ? "text" : "password"}
+                             value={password}
+                             onChange={(e) => setPassword(e.target.value)}
+                             placeholder="Enter you password"
+                        />
+                        <InputRightElement>
+                            <Button size="m" onClick={() => setShow(!show)}>
+                                {show ? <ViewIcon /> : <ViewOffIcon />}
+                            </Button>
+                        </InputRightElement>
+                    </InputGroup>                       
             </div>
             <button onClick={handleLogin} className="register">Login</button>
-            <h5 style={{textAlign: 'center',marginBottom: '2%'}} onClick={ () => { 
+            <h5 style={{textAlign: 'center',marginBottom: '2%',fontWeight: '400'}} onClick={ () => { 
                     setAuthorize(!authorize)
-                    History('/')  }}>Click here to Signup</h5>
+                    History('/')  }}>Didn't have an account? <strong>Signup</strong></h5>
         </div>
     </div>
     </>

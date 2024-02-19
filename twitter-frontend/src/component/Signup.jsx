@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+
 const Signup = ({prop}) => {
     const History = useNavigate();
     const [authorize,setAuthorize] = prop;
@@ -10,6 +13,8 @@ const Signup = ({prop}) => {
     const [osecret, setOsecret] = useState('');
     const [esecret, setEsecret] = useState('');
     const [tusername, settUsername] = useState('');
+    const [show, setShow] = useState(false);
+    const [cshow, setcShow] = useState(false);
     const handleRegister = async () => {
         if (email && password && osecret && esecret && (password === rpassword) && tusername) {
             
@@ -43,14 +48,35 @@ const Signup = ({prop}) => {
                         onChange={(e) => setEmail(e.target.value)}
                         type="email" placeholder="Enter your email" />
                     <label>Password:</label>
-                    <input type="password" value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter you password" />
+                     <InputGroup>
+                        <Input
+                             type={show ? "text" : "password"}
+                             value={password}
+                             onChange={(e) => setPassword(e.target.value)}
+                             placeholder="Enter you password"
+                        />
+                        <InputRightElement>
+                            <Button size="m" onClick={() => setShow(!show)}>
+                                {show ? <ViewIcon /> : <ViewOffIcon />}
+                            </Button>
+                        </InputRightElement>
+                    </InputGroup>                       
                     <label>Re-enter Passowrd</label>
-                    <input type="password"
-                        value={rpassword}
-                        onChange={(e) => setRPassword(e.target.value)}
-                        placeholder="Renter you password" />
+                    <div style={{display: 'flex'}}>
+                    <InputGroup>
+                        <Input
+                             type={cshow ? "text" : "password"}
+                             value={rpassword}
+                             onChange={(e) => setRPassword(e.target.value)}
+                             placeholder="Renter you password"
+                        />
+                        <InputRightElement>
+                            <Button size="m" onClick={() => setcShow(!cshow)}>
+                                {cshow ? <ViewIcon /> : <ViewOffIcon />}
+                            </Button>
+                        </InputRightElement>
+                    </InputGroup>
+                    </div>
                     <div style={{ display: 'flex', marginTop: '1%' }}>
                         <div>
                             <label>Owner Secret</label>
@@ -74,9 +100,9 @@ const Signup = ({prop}) => {
                         placeholder="Enter you twitter username" />
                 </div>
                 <button onClick={handleRegister} className="register">Register</button>
-                <h5 style={{textAlign: 'center',marginBottom: '2%'}} onClick={ () => { 
+                <h5 style={{textAlign: 'center',marginBottom: '2%',fontWeight: '400'}} onClick={ () => { 
                     setAuthorize(!authorize)
-                    History('/login')  }}>Click here to Login</h5>
+                    History('/login')  }}>Already have an account? <strong>Login</strong></h5>
             </div>
         </div>
     </>

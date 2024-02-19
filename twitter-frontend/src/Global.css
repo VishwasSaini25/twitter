@@ -1,87 +1,148 @@
-.App{
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.App {
   height: 100vh;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
+
 /* navigation bar */
 
-.navbar{
+.navbar {
   display: flex;
   justify-content: space-between;
-  margin-inline:3%;
+  margin-inline: 3%;
   align-items: center;
   text-align: center;
   height: 5rem;
 }
-.navbrand,.nav-btns{
+
+.navbrand {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.navbrand,
+.nav-btns {
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
-  padding:1%;
+  padding: 1%;
+
 }
-.nav-btns{
+
+.nav-btns {
   width: 24%;
   height: 100%;
   display: flex;
   justify-content: space-around;
 }
-.nav-btns button{
+
+.nav-btns button {
   padding: 3%;
   width: 40%;
-  border-radius: 10px;
+  border-radius: 50px;
+  font-size: 18px;
   border: none;
+  color: blueviolet;
+
 }
-.nav-btns button:hover{
+
+.nav-btns button:hover {
   border: 1px solid black;
 }
-.active{
+
+.active {
   background: black;
   color: white;
 }
 
 /* signuplogin */
-.signuplogin{
+.signuplogin {
   height: 100%;
+  display: flex;
   overflow: hidden;
 }
-.signup-section{
+
+.signup-section {
   margin: auto;
 }
-.signup{
+
+.signuplogin-image img {
+  margin-top: 4% !important;
+}
+
+.signup {
   margin: auto;
-  width: 34%;
+  width: 85%;
   border-radius: 10px;
   height: 100%;
   margin-top: 3%;
-  background-color: aquamarine;
+  /* background-color: ; */
   border: 1px solid transparent;
-}
-.signup-heading h1{
+  /* -webkit-box-shadow: 0px 0px 30px -3px rgba(148,140,148,1);
+-moz-box-shadow: 0px 0px 28px -6px rgba(148,140,148,1);
+box-shadow: 0px 0px 28px -6px rgba(148,140,148,1); */
+} 
+
+.signup-heading h1 {
   text-align: center;
   margin-top: 3%;
   font-size: 1.8rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #36454F;
 }
-.signup-heading h3{
+
+.signup-heading h3 {
   text-align: center;
-  margin:auto;
+  margin: auto;
   margin-top: 1%;
   font-size: 1.2rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #36454F;
 }
-.form{
+
+.chakra-button {
+  border: none;
+  margin: 0;
+}
+
+.css-dp9r5f {
+  right: 12px !important;
+  top: 11px !important;
+}
+
+.form {
   display: grid;
   margin: 5%;
   margin-top: 2%;
+  color: #36454F;
 }
-.form label,input{
+
+.form label,
+input {
   margin-top: 1%;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
-.form input{
+
+.form input {
   height: 1.8rem;
   padding-left: 1%;
   width: 100%;
+  border: 1px solid;
+  border-color: grey;
+  border-radius: 5px;
 }
-.register{
+
+.register {
   display: flex;
   justify-content: center;
   margin: auto;
@@ -91,26 +152,46 @@
   border-radius: 10px;
   border: none;
   font-size: 18px;
+  background-color: blueviolet;
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: .5px;
 }
-.home-section{
+
+.home-section {
   height: 100%;
   display: flex;
+  color: #36454F;
 }
-.home-section img{
+
+.home-section img,
+.signuplogin-image img {
   display: flex;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10%;
 }
-.home-heading{
+
+.home-heading {
   /* padding-top: 3%; */
   margin-top: 10%;
 }
-.home-heading h1,h4,button{
+.home-heading h2{
+  margin-left: 7.5%;
+}
+.home-heading h1{
+  color: black;
+}
+.home-heading h1,
+h5,
+button {
   margin-top: 1.5%;
   margin-left: 7.5%;
 }
-.home-heading button{
+
+.home-heading button {
   padding: 2%;
   margin-top: 3%;
   font-size: 1.2rem;
@@ -118,81 +199,354 @@
   letter-spacing: 1px;
   border-radius: 20px;
   border: none;
+  color: blueviolet;
+}
+.home-heading button:hover{
+  background-color: black;
+  color: white;
 }
 
 /* tweet */
-.tweet-section{
+.tweet-section {
   height: 100%;
   overflow: hidden;
 }
-.tweet{
+
+.tweet {
   height: 100%;
-}
-.tweet-form{
-    display: grid;
-    margin: auto;
-    padding-top: 2%;
-    width: 30%;
-}
-.tweet-form textarea{
-  height: 3rem;
-  padding-left: .5%;
-}
-.tweet-form button{
-  margin-left: 0;
 }
 
+.tweet-form {
+  display: grid;
+  margin: auto;
+  padding-top: 2%;
+  width: 30%;
+}
+
+.tweet-form textarea,.editor-upload textarea {
+  height: 3rem;
+  padding-left: 1%;
+}
+.tweet input,.editor-upload input{
+  border: none;
+  font-size: 18px;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.tweet-form button,.editor-upload button {
+  margin-left: 0;
+  background-color: aquamarine;
+  border: none;
+  font-size: 22px;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.tweet-form button:hover,.editor-upload button:hover{
+  background-color: black;
+  color: white;
+}
 /* user category */
-.userCategory-section{
+.userCategory-section {
   height: 100%;
 }
-.userCategory{
+.userCategory h1{
+  color: #36454F;
+}
+.userCategory {
   margin: auto;
   width: 40%;
   text-align: center;
-  margin-top:1%
+  margin-top: 1%
 }
-.user-btns button{
-  margin:0;
+
+.user-btns button {
+  margin: 0;
   margin-top: 2%;
   width: 28%;
   position: relative;
   padding: 3%;
   border: none;
-  border-top-left-radius: 30px; 
-  border-top-right-radius: 30px;   
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
-.user-submit{
+
+.user-submit {
   padding: 3%;
   margin: auto;
   margin-top: 2%;
   width: 55%;
+  background-color: aquamarine;
+  border: none;
+  font-size: 22px;
+  font-weight: 600;
+}
+.user-submit:hover{
+  background-color: black;
+  color: white;
 }
 
 /* history */
-.history-section{
+.history-section {
   height: 100%;
 }
-.history{
+
+.history {
   margin-left: 10%;
   margin-right: 10%;
   border: 1px solid black;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-  gap: 20px; 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
   padding: 20px;
 }
-.data{
+
+.history-btn {
+  /* width: 18% !important; */
+  border-radius: 50px !important;
+  font-size: 18px;
+  color: blueviolet;
+}
+
+.data {
   margin: auto;
   width: 100%;
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 8px;
+  background-color: white;
 }
-.column{
-  
+
+.column {
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.editorupload-section{
+  height: 100%;
+}
+.editor-upload{
+  height: 100%;
+  margin: auto;
+}
+.editor-upload form{
+  display: grid;
+  margin: auto;
+  padding-top: 2%;
+  width: 30%;
+}
+.editor-upload form button{
+  margin-left: 0;
+}
+
+.success-checkmark {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.check-icon {
+  margin: auto;
+  margin-top: 15%;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: content-box;
+  border: 4px solid #4CAF50;
+}
+.blink{
+  animation: blink 1s ease-in;
+}
+@keyframes blink {
+  0%{
+    opacity: 0;
+  }
+  30%{
+    opacity: 1;
+  }
+  60%{
+    opacity: 0;
+  }
+  80%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+.check-icon::before {
+  top: 3px;
+  left: -2px;
+  width: 30px;
+  transform-origin: 100% 50%;
+  border-radius: 100px 0 0 100px;
+}
+
+.check-icon::after {
+  top: 0;
+  left: 30px;
+  width: 60px;
+  transform-origin: 0 50%;
+  border-radius: 0 100px 100px 0;
+  animation: rotate-circle 4.25s ease-in;
+}
+
+.check-icon::before,
+.check-icon::after {
+  content: '';
+  height: 100px;
+  position: absolute;
+  background: #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+.icon-line {
+  height: 5px;
+  background-color: #4CAF50;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+}
+
+.line-tip {
+  top: 46px;
+  left: 14px;
+  width: 25px;
+  transform: rotate(45deg);
+  animation: icon-line-tip 0.75s;
+}
+
+.line-long {
+  top: 38px;
+  right: 8px;
+  width: 47px;
+  transform: rotate(-45deg);
+  animation: icon-line-long 0.75s;
+}
+
+.icon-circle {
+  top: -4px;
+  left: -4px;
+  z-index: 10;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  box-sizing: content-box;
+  border: 4px solid rgba(76, 175, 80, .5);
+}
+
+.icon-fix {
+  top: 8px;
+  width: 5px;
+  left: 26px;
+  z-index: 1;
+  height: 85px;
+  position: absolute;
+  transform: rotate(-45deg);
+  background-color: #FFFFFF;
+}
+
+@keyframes rotate-circle {
+  0% {
+    transform: rotate(-45deg);
+  }
+
+  5% {
+    transform: rotate(-45deg);
+  }
+
+  12% {
+    transform: rotate(-405deg);
+  }
+
+  100% {
+    transform: rotate(-405deg);
+  }
+}
+
+@keyframes icon-line-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+  }
+
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+  }
+
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px;
+  }
+
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px;
+  }
+
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px;
+  }
+}
+
+@keyframes icon-line-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+  }
+
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+  }
+
+  84% {
+    width: 55px;
+    right: 0px;
+    top: 35px;
+  }
+
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px;
+  }
+}
+
+/* BackgroundImages.css */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure background images do not overlap content */
+  overflow: hidden;
+  background-color: #f7f7f7;
+  opacity: 0.5;
+}
+
+.background-image {
+  width: 100%; /* Example size, adjust as needed */
+  height: 35%; /* Example size, adjust as needed */
+  /* mix-blend-mode:multiply; */
+}
+.background-image2 {
+  width: auto; 
+  height: 30%; 
+  mix-blend-mode:multiply;
 }

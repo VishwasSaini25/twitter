@@ -4,21 +4,19 @@ import Navbar from './component/Navbar';
 import TwitterLogin from "./component/TwitterLogin";
 import Tweet from "./component/Tweet";
 import './Global.css';
-import { Route, Routes, useNavigate,useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import VerifyOwnerEditor from './component/VerifyOwnerEditor';
 import EditorUpload from './component/EditorUpload';
 import History from './component/History';
 import AllowTweet from './component/AllowTweet';
 function App() {
   const history = useNavigate();
-  // const location = useLocation();
   const [authorize, setAuthorize] = useState(true);
-
-  // check cookie available or not
   useEffect(() => {
-    if (!document.cookie) {
+    if (!document.cookie) { 
       history("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

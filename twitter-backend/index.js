@@ -105,7 +105,6 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   useremail = email;
-  console.log(useremail);
   try {
     const user = await UserDefault.findOne({ email });
     if (user && (await compare(password, user.password))) {
@@ -130,10 +129,8 @@ app.post('/logout', (req, res) => {
 app.post('/usercategory', async (req,res) => {
   const {data} = req.body
   const email = useremail;
-  console.log(useremail);
   try{
     const user = await UserDefault.findOne({ email });
-    console.log(user);
     if(user && (data === user.osecret || data === user.esecret)){
       return res.status(200).send({email,message: "valid secret"});
     } else {
@@ -157,16 +154,26 @@ const transporter = nodemailer.createTransport({
 
 app.post('/send-email', (req, res) => {
   const { mediaUrl,tweet } = req.body;
-  imagesData.push(mediaUrl);
-  tweetData.push(tweet)
-  const allowUrl = `http://localhost:3000/allowtweet?mediaurl=${mediaUrl}&tweet=${tweet}`;
-  console.log(useremail);
+  // let allowUrl;
+  if (!useremail) { // Basic validation
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+  if(mediaUrl){
+    imagesData.push(mediaUrl);
+    // allowUrl = `http://localhost:3000/allowtweet?mediaurl=${mediaUrl}&tweet=${tweet}`;
+  } else imagesData.push(null);
+  if(tweet){
+    tweetData.push(tweet)
+  } else tweetData.push(null);
+  const allowUrl = `http://localhost:3000/allowtweet?${mediaUrl ? `mediaurl=${mediaUrl}&` : ''}tweet=${tweet || ''}`;
+  // allowUrl = `http://localhost:3000/allowtweet?tweet=${tweet}`;
+  
   const mailOptions = {
       from: 'vishersaini11@gmail.com',
       to: useremail,
       subject: 'Verify your editor upload',
-      html: `<p>Check out this awesome media: <a href="${mediaUrl}">Click Here</a></p>
-      <p>Check out this tweet: ${tweet}</p>
+      html: `<p>${mediaUrl ? `Check out this awesome media: <a href="${mediaUrl}">Click Here</a></p>`: ``}
+      <p>${tweet ? `Check out this tweet: ${tweet}` : 'No tweet text provided.'}</p>
       <p>Do you approve this content?</p>
       <a href="${allowUrl}" >Allow</a>  
       <a>Reject</a>
@@ -175,6 +182,7 @@ app.post('/send-email', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
           return console.log(error);
+          return res.status(500).json({ message: 'Error sending email' });
       }
       console.log('Email sent: ' + info.response);
       return res.status(200).json({imagesData,tweetData});
@@ -262,7 +270,7 @@ app.get('/auth/twitter/callback',
   function (req, res) {
     const userData = JSON.stringify(req.user, undefined, 2);
     username = req.user.username;    
-    res.redirect(`http://localhost:3000/usercategory`);
+    res.redirect(`http://localhost:3000/usercategory?username=${username}`);
     console.log('Success');
   });
 

@@ -1,30 +1,22 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-
-
+import { useNavigate,useLocation } from 'react-router-dom';
+import BackgroundImages from './BackgroundImages';
 const VerifyOwnerEditor = () => {
     const [zind, setZind] = useState(true);
     const [osecret, setOsecret] = useState('');
     const [esecret, setEsecret] = useState('');
-    // const query = useQuery();
-    // const [email, setEmail] = useState('');
+    const [tlogin,settLogin] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const query = useQuery();
     const history = useNavigate();
-
-    // function useQuery() {
-    //     return new URLSearchParams(useLocation().search);
-    // }
-
-    // useEffect(() => {
-    //     const dataParam = query.get("email");
-    //     console.log(dataParam);
-    //     if (dataParam) {
-    //         setEmail(dataParam);
-    //     }
-    //     console.log(email);
-    // }, []);
-
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
+    useEffect(() => {
+        settLogin(query.get('username'));
+        setIsLoading(false);
+    },[query])
 
     const handleUserSecret = async () => {
         const data = zind ? osecret : esecret;
@@ -40,8 +32,16 @@ const VerifyOwnerEditor = () => {
                 console.error(error.response.data);
             })
     }
+    if (isLoading) { 
+        return <div style={{margin: 'auto'}}>
+            <BackgroundImages />
+            <h1>Loading...</h1>
+            </div>;
+    }
     return <>
+    <BackgroundImages />
         <div className="userCategory-section">
+            {tlogin ? 
             <div className="userCategory">
                 <h1>Tell us who you are</h1>
                 <div className="userCategory-form">
@@ -57,11 +57,16 @@ const VerifyOwnerEditor = () => {
                             placeholder={zind ? "Enter owner secret" : "Enter editor secret"}
                             value={zind ? osecret : esecret}
                             onChange={(e) => { zind ? setOsecret(e.target.value) : setEsecret(e.target.value) }}
-                        />
+                            />
                     </div>
                     <button onClick={handleUserSecret} className="user-submit">Submit</button>
                 </div>
             </div>
+            : <div>
+                <h1>You didn't logged in with twitter yet</h1>
+                <button onClick={() => history('/home')} >Login with twitter</button>
+            </div>
+            }
         </div>
     </>
 }

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import BackgroundImages from './BackgroundImages';
 const Tweet = () => {
     const [tweet, setTweet] = useState('');
     const [file, setFile] = useState(null);
     
-
-
     const postTweet = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -21,7 +20,7 @@ const Tweet = () => {
         }
     };
     return <>
-        {/* {userData ? */}
+        <BackgroundImages />
             <div className="tweet-section">
                 <div className='tweet'>
                         <div className='tweet-form'>
@@ -39,8 +38,6 @@ const Tweet = () => {
                         </div>
                 </div>
             </div>
-             {/* : <div>Loading or no user data...</div> */}
-        {/* } */}
     </>
 }
 export default Tweet;
