@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-
 const Signup = ({prop}) => {
     const History = useNavigate();
     const [authorize,setAuthorize] = prop;

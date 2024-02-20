@@ -4,9 +4,10 @@ import BackgroundImages from './BackgroundImages';
 const Tweet = () => {
     const [tweet, setTweet] = useState('');
     const [file, setFile] = useState(null);
-    
+    const [tweeted,setTweeted] = useState(false);
     const postTweet = async (e) => {
         e.preventDefault();
+        setTweeted(false);
         const formData = new FormData();
         formData.append('tweet', tweet);
         if (file) {
@@ -15,6 +16,9 @@ const Tweet = () => {
         try {
             const result = await axios.post('http://localhost:5000/tweet', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
             console.log(result.data);
+            if(result.data){
+                setTweeted(true);                
+            }
         } catch (error) {
             console.error(error.response.data);
         }
@@ -35,6 +39,7 @@ const Tweet = () => {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         <button onClick={postTweet} >Tweet</button>
+                        {tweeted ? <span>Tweeted Successfully</span> : null}
                         </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ const TwitterLogin = () => {
              review, and administrators to approve it for tweeting, ensuring only the best content makes it to your audience.</h5>
             <button onClick={handleTwitterLogin}>Login with Twitter</button>
         </div>
-        <div style={{flex: '50%'}}>
+        <div className='home-heading-image' style={{flex: '50%'}}>
         <img  width='400' height='400' src={homebg} alt="creator" />    
         </div>
     </div>

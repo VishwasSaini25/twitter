@@ -7,7 +7,7 @@ const SignupLogin = ({hookProp}) => {
     return <>
     <div className='signuplogin'>
         <div className='signuplogin-image' style={{flex: '50%'}}>
-            <img src={bg} width="550" height="500" />
+            <img src={bg} />
         </div>
         <div className='signuplogin-form'  style={{flex: '50%'}}>
         {authorize === true ? <Signup prop={[authorize,setAuthorize]} /> : <Login prop = {[authorize,setAuthorize]} />}

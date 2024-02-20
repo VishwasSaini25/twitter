@@ -7,9 +7,7 @@ const EditorUpload = () => {
     const location = useLocation();
     const email = location.state;
     const [file, setFile] = useState(null);
-    const [imagesData, setImagesData] = useState([]);
     const [tweet, setTweet] = useState('');
-    const [tweetData, settweetData] = useState([]);
 
     const uploadFile = async (e) => {
         e.preventDefault();
@@ -31,20 +29,12 @@ const EditorUpload = () => {
         }
         try {
             const response = await axios.post('http://localhost:5000/send-email', { mediaUrl, tweet })
-            setImagesData(response.data.imagesData);
-            settweetData(response.data.tweetData);
+            if(response) History('/history');
         } catch (error) {
             console.log(error);
         }
     }
-    useEffect(() => {
-        if (imagesData.length > 0 && tweetData.length > 0) {
-            History('/history', { state: { imagesData, tweetData } });
-        } else if (imagesData.length === 0 && tweetData.length > 0) {
-            History('/history', { state: { imagesData, tweetData } });
-        }
-    // eslint-disable-next-line
-    }, [imagesData, tweet]);
+   
     return <>
             <BackgroundImages />
         {email ?
