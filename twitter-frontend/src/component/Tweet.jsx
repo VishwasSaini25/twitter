@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import BackgroundImages from './BackgroundImages';
+import { useNavigate } from 'react-router-dom';
 const Tweet = () => {
+    const History = useNavigate();
     const [tweet, setTweet] = useState('');
     const [file, setFile] = useState(null);
     const [tweeted,setTweeted] = useState(false);
@@ -15,9 +17,9 @@ const Tweet = () => {
         }
         try {
             const result = await axios.post('http://localhost:5000/tweet', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-            console.log(result.data);
             if(result.data){
-                setTweeted(true);                
+                setTweeted(true);   
+                History('/tweeted') ;            
             }
         } catch (error) {
             console.error(error.response.data);
@@ -27,6 +29,7 @@ const Tweet = () => {
         <BackgroundImages />
             <div className="tweet-section">
                 <div className='tweet'>
+                            <h1>Type you'r tweet content or select Media</h1>
                         <div className='tweet-form'>
                             <textarea
                                 type="text"

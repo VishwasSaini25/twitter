@@ -215,6 +215,7 @@ button {
 
 .tweet {
   height: 100%;
+  padding-top: 10%;
 }
 
 .tweet-form {
@@ -223,7 +224,11 @@ button {
   padding-top: 2%;
   width: 30%;
 }
-
+.tweet h1,.editorupload-section h1{
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 24px;
+}
 .tweet-form textarea,.editor-upload textarea {
   height: 3rem;
   padding-left: 1%;
@@ -330,7 +335,7 @@ button {
 }
 .editor-upload{
   height: 100%;
-  margin: auto;
+  padding-top: 10%;
 }
 .editor-upload form{
   display: grid;

@@ -9,6 +9,7 @@ import VerifyOwnerEditor from './component/VerifyOwnerEditor';
 import EditorUpload from './component/EditorUpload';
 import History from './component/History';
 import AllowTweet from './component/AllowTweet';
+import OwnerTweetResult from './component/OwnerTweetResult';
 function App() {
   const history = useNavigate();
   const [authorize, setAuthorize] = useState(true);
@@ -31,6 +32,7 @@ function App() {
         <Route path='/editorupload' element={<EditorUpload />} />
         <Route path='/history' element={<History />} />
         <Route path='/allowtweet' element={<AllowTweet />} />
+        <Route path='/tweeted' element={<OwnerTweetResult />} />
       </Routes>
     </div>
   );

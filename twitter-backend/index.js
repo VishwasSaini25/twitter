@@ -208,7 +208,6 @@ app.post('/rejecttweet', async (req, res) => {
     user = await Tweet.findOneAndDelete({ mediaUrl });
   }
     // const deleted =  await Tweet.deleteOne({ user });
-    console.log(user);
     return res.status(200).json({ message: "deleted successfully"});
 
   } catch (error) {
@@ -319,7 +318,6 @@ app.get('/auth/twitter/callback',
     const userData = JSON.stringify(req.user, undefined, 2);
     username = req.user.username;
     res.redirect(`http://localhost:3000/usercategory?username=${username}`);
-    console.log('Success');
   });
 
 

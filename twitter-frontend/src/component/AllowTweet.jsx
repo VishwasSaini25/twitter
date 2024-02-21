@@ -26,20 +26,19 @@ const AllowTweet = () => {
         }
         if (rejected) {
             setReject(true);
-            shouldPostTweet = false;   
-        } 
+            shouldPostTweet = false;
+        }
         const rejectTweet = async () => {
-            try{
-                await axios.post('http://localhost:5000/rejecttweet',{tweet,cloudinaryUrl});
-            } catch(error){
+            try {
+                await axios.post('http://localhost:5000/rejecttweet', { tweet, cloudinaryUrl });
+            } catch (error) {
                 console.error(error.response.data);
             }
-        } 
+        }
         const postTweet = async () => {
             if (shouldPostTweet && (cloudinaryUrl || tweet)) {
                 try {
-                    const result = await axios.post('http://localhost:5000/tweetallow', { tweet, cloudinaryUrl });
-                    console.log(result.data);
+                    await axios.post('http://localhost:5000/tweetallow', { tweet, cloudinaryUrl });
                 } catch (error) {
                     console.error(error.response.data);
                 }
@@ -47,7 +46,7 @@ const AllowTweet = () => {
         };
         if (shouldPostTweet) {
             postTweet();
-        } else if(!shouldPostTweet) rejectTweet();
+        } else if (!shouldPostTweet) rejectTweet();
         // eslint-disable-next-line
     }, [query]);
 
@@ -64,9 +63,9 @@ const AllowTweet = () => {
                         <div className="icon-fix"></div>
                     </div>
                     <h1>Tweeted successfully</h1>
-                </div>  
+                </div>
                 :
-                <div className="reject" style={{margin: 'auto'}}>
+                <div className="reject" style={{ margin: 'auto' }}>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
                         <circle className="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
                         <line className="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />

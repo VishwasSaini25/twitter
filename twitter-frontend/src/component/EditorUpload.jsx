@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BackgroundImages from './BackgroundImages';
@@ -40,6 +40,7 @@ const EditorUpload = () => {
         {email ?
             <div className="editorupload-section">
                 <div className='editor-upload'>
+                    <h1>Type you'r tweet content or select Media</h1>
                     <form onSubmit={uploadFile}>
                         <textarea
                             type="text"
