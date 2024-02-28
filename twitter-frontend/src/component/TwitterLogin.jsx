@@ -3,7 +3,7 @@ const homebg = require("../images/homebg.jpg");
 const TwitterLogin = () => {
     
     const handleTwitterLogin = () => {
-        window.location.href = "http://localhost:5000/auth/twitter";
+        window.location.href = "http://localhost:8000/auth/twitter";
     };
     return <>
         <BackgroundImages />

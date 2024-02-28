@@ -40,7 +40,7 @@
   justify-content: space-around;
 }
 
-.nav-btns button {
+.nav-btns button,.dropdown button {
   padding: 3%;
   width: 40%;
   border-radius: 50px;
@@ -50,13 +50,35 @@
 
 }
 
-.nav-btns button:hover {
+.nav-btns button:hover,.dropdown button:hover {
   border: 1px solid black;
 }
 
 .active {
   background: black;
   color: white;
+}
+
+.dropdown{
+  position: absolute;
+  right:2rem;
+  top:68px;
+  background: red;
+  width: 300px;
+  border-radius: 30px;
+  overflow: hidden;
+  padding: .5%;
+  height: 0;
+}
+.dropdown button{
+  margin: auto;
+  margin-block: 3%;
+}
+.dropdown_open{
+  height: auto;
+}
+.resp-btn{
+  display: none;
 }
 
 /* signuplogin */
@@ -229,7 +251,7 @@ button {
   font-family: "Ubuntu", sans-serif;
   font-size: 24px;
 }
-.tweet-form textarea,.editor-upload textarea {
+.tweet-form textarea,.editor-upload textarea,.settings textarea {
   height: 3rem;
   padding-left: 1%;
 }
@@ -239,7 +261,7 @@ button {
   padding-top: 2%;
   padding-bottom: 2%;
 }
-.tweet-form button,.editor-upload button {
+.tweet-form button,.editor-upload button,.settings button {
   margin-left: 0;
   background-color: aquamarine;
   border: none;
@@ -252,19 +274,21 @@ button {
   color: white;
 }
 /* user category */
-.userCategory-section {
+.userCategory-section,.username-section {
   height: 100%;
 }
 .userCategory h1{
   color: #36454F;
 }
-.userCategory {
+.userCategory,.settings {
   margin: auto;
   width: 40%;
   text-align: center;
   margin-top: 1%
 }
-
+.settings button{
+  margin-left: 0;
+}
 .user-btns button {
   margin: 0;
   margin-top: 2%;
@@ -337,7 +361,7 @@ button {
   height: 100%;
   padding-top: 10%;
 }
-.editor-upload form{
+.editor-upload form,.settings{
   display: grid;
   margin: auto;
   padding-top: 2%;
@@ -631,5 +655,13 @@ p {
 @media screen and (max-width: 430px) {
   .signuplogin-image,.home-heading-image{
     display: none;
+  }
+}
+@media screen and (max-width: 860px) {
+  .nav-btns{
+    display: none;
+  }
+  .resp-btn{
+    display: block;
   }
 }

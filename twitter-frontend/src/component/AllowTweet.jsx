@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import { instance } from "../utils/axios";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import BackgroundImages from "./BackgroundImages";
@@ -24,27 +25,32 @@ const AllowTweet = () => {
             setTweet(tweets);
             shouldPostTweet = true;
         }
-        if (rejected) {
+        if (rejected) { 
             setReject(true);
             shouldPostTweet = false;
         }
         const rejectTweet = async () => {
             try {
-                await axios.post('http://localhost:5000/rejecttweet', { tweet, cloudinaryUrl });
+                await instance.post('/rejecttweet', { tweet, cloudinaryUrl });
             } catch (error) {
                 console.error(error.response.data);
             }
         }
         const postTweet = async () => {
             if (shouldPostTweet && (cloudinaryUrl || tweet)) {
+                const tokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
+                let token = null;
+                if (tokenCookie) {
+                    token = tokenCookie.split('=')[1];
+                }  
                 try {
-                    await axios.post('http://localhost:5000/tweetallow', { tweet, cloudinaryUrl });
+                    await instance.post('/tweetallow', { tweet, cloudinaryUrl }, { headers: { 'Authorization': `Bearer ${token}` } });
                 } catch (error) {
                     console.error(error.response.data);
                 }
             }
         };
-        if (shouldPostTweet) {
+        if (shouldPostTweet) { 
             postTweet();
         } else if (!shouldPostTweet) rejectTweet();
         // eslint-disable-next-line

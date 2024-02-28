@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { instance } from '../utils/axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BackgroundImages from './BackgroundImages';
 const EditorUpload = () => {
@@ -28,15 +29,20 @@ const EditorUpload = () => {
             }
         }
         try {
-            const response = await axios.post('http://localhost:5000/send-email', { mediaUrl, tweet })
-            if(response) History('/history');
+            const tokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
+            let token = null;
+            if (tokenCookie) {
+                token = tokenCookie.split('=')[1];
+            }
+            const response = await instance.post('/send-email', { mediaUrl, tweet }, { headers: { 'Authorization': `Bearer ${token}` } })
+            if (response) History('/history');
         } catch (error) {
             console.log(error);
         }
     }
-   
+
     return <>
-            <BackgroundImages />
+        <BackgroundImages />
         {email ?
             <div className="editorupload-section">
                 <div className='editor-upload'>

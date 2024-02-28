@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { instance } from '../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import { Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -14,7 +15,7 @@ const Login = ({prop}) => {
 
     const handleLogin = async () => {
         if(email && password){
-            await axios.post('http://localhost:5000/login', { email, password })
+            await instance.post('/auth/login', { email, password })
             .then(response => {
                 if(response.data){
                     document.cookie = `token=${response.data.token}`;

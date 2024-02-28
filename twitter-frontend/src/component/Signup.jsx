@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { instance } from '../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import { Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -17,7 +18,7 @@ const Signup = ({prop}) => {
     const handleRegister = async () => {
         if (email && password && osecret && esecret && (password === rpassword) && tusername) {
             
-            await axios.post('http://localhost:5000/register', { email, password, osecret, esecret,tusername })
+            await instance.post('/auth/register', { email, password, osecret, esecret,tusername })
                 .then(response => {
                     if (response.data) {
                         alert("Success, You must login now");

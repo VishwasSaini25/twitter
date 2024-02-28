@@ -10,6 +10,7 @@ import EditorUpload from './component/EditorUpload';
 import History from './component/History';
 import AllowTweet from './component/AllowTweet';
 import OwnerTweetResult from './component/OwnerTweetResult';
+import ChangeUsername from "./component/ChnageUsername";
 function App() {
   const history = useNavigate();
   const [authorize, setAuthorize] = useState(true);
@@ -33,6 +34,7 @@ function App() {
         <Route path='/history' element={<History />} />
         <Route path='/allowtweet' element={<AllowTweet />} />
         <Route path='/tweeted' element={<OwnerTweetResult />} />
+        <Route path='/settings' element={<ChangeUsername />} />
       </Routes>
     </div>
   );
