@@ -61,10 +61,10 @@ tweetRouter.post('/send-email',authenticateToken, (req, res) => {
 });
 
 tweetRouter.post('/tweetallow',authenticateToken, async (req, res) => {
-const email = req.user.email;
+  const email = req.user.email;
   const user = await UserDefault.findOne({ email });
-   const username = user.tusername;
- const user1 = await User.findOne({ username }) 
+  const username = user.tusername;
+  const user1 = await User.findOne({ username }) 
   if (!user1) {
     return res.status(404).json({ message: 'User not found' });
   }

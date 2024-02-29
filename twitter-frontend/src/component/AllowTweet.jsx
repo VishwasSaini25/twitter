@@ -20,7 +20,7 @@ const AllowTweet = () => {
         if (mediaUrl) {
             setCloudinaryUrl(mediaUrl);
             shouldPostTweet = true;
-        }
+        } 
         if (tweets) {
             setTweet(tweets);
             shouldPostTweet = true;

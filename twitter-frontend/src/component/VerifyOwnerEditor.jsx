@@ -58,7 +58,7 @@ const VerifyOwnerEditor = () => {
                             <button onClick={() => { setZind(true) }} style={zind ? { background: 'black', color: 'white' } : null}>You'r the owner</button>
                             <button onClick={() => { setZind(false) }} style={!zind ? { background: 'black', color: 'white' } : null}>You'r an editor</button>
                         </div>
-                        <div style={{ display: 'grid', width: '55%', margin: 'auto', marginTop: '1%' }}>
+                        <div className="input-title" style={{ display: 'grid', width: '55%', margin: 'auto', marginTop: '1%' }}>
                             <label style={{ marginBottom: '1%', fontSize: '22px' }}>Enter you secret</label>
                             <input
                                 style={{ height: '2rem', paddingInline: '1%' }}

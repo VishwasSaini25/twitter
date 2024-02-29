@@ -63,12 +63,13 @@
   position: absolute;
   right:2rem;
   top:68px;
-  background: red;
+  background: white;
   width: 300px;
   border-radius: 30px;
   overflow: hidden;
   padding: .5%;
   height: 0;
+  z-index: 9;
 }
 .dropdown button{
   margin: auto;
@@ -663,5 +664,34 @@ p {
   }
   .resp-btn{
     display: block;
+  }
+  .dropdown button{
+    background-color: white;
+  }
+  .dropdown{
+    background: aquamarine;
+  }
+  .home-heading-image{
+    display: none;
+  }
+}
+@media screen and (max-width: 770px) {
+  .user-btns button{
+    width: 100%;
+    height: 3rem;
+  }
+  .input-title,.user-submit{
+    width: 100% !important;
+  }
+  .tweet-form,.editor-upload form{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 430px){
+  .userCategory{
+    width: 60%;
+  }
+  .tweet-form,.editor-upload form,.settings{
+    width: 60%;
   }
 }
