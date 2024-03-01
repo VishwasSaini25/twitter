@@ -55,7 +55,7 @@ authRouter.get('/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   function (req, res) {
     const userData = JSON.stringify(req.user, undefined, 2);
-    res.redirect(`http://localhost:3000/usercategory`);
+    res.redirect(`https://creator-ally.netlify.app/usercategory`);
   });
 
 export default authRouter;

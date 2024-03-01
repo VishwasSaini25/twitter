@@ -33,8 +33,8 @@ tweetRouter.post('/send-email',authenticateToken, (req, res) => {
   try {
     newTweet.save();
     const rejected = "reject";
-    const allowUrl = `http://localhost:3000/allowtweet?${mediaUrl ? `mediaurl=${mediaUrl}&` : ''}tweet=${tweet || ''}`;
-    const rejectUrl = `http://localhost:3000/allowtweet?${mediaUrl ? `mediaurl=${mediaUrl}&` : ''}tweet=${tweet || ''}&reject=${rejected}`;
+    const allowUrl = `https://creator-ally.netlify.app/allowtweet?${mediaUrl ? `mediaurl=${mediaUrl}&` : ''}tweet=${tweet || ''}`;
+    const rejectUrl = `https://creator-ally.netlify.app/allowtweet?${mediaUrl ? `mediaurl=${mediaUrl}&` : ''}tweet=${tweet || ''}&reject=${rejected}`;
     const mailOptions = {
       from: 'vishersaini11@gmail.com',
       to: email,
