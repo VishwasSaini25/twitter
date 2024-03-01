@@ -7,7 +7,7 @@ const AllowTweet = () => {
     const query = useQuery();
     const [cloudinaryUrl, setCloudinaryUrl] = useState('');
     const [tweet, setTweet] = useState('');
-    const [shouldBlink, setShouldBlink] = useState(true);
+    const shouldBlink = true;
     const [reject, setReject] = useState(false);
     function useQuery() {
         return new URLSearchParams(useLocation().search);

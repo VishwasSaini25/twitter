@@ -29,7 +29,7 @@ const Navbar = () => {
     return <>
         <div className="navbar">
             <div onClick={() => History('/usercategory')} className="navbrand">
-                <img src={icon} width="50" height="50" style={{ marginRight: '10px' }} />
+                <img src={icon} width="50" height="50" style={{ marginRight: '10px' }} alt="brandicon" />
                 <h1 style={{ color: 'blueviolet' }}>Creator Ally</h1>
             </div>
             <div className="nav-btns">

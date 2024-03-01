@@ -26,7 +26,7 @@ passport.deserializeUser(function (userId, done) {
 passport.use(new TwitterStrategy({
     consumerKey: process.env.API_KEY,
     consumerSecret: process.env.API_SECRET,
-    callbackURL: "http://localhost:8000/auth/twitter/callback"
+    callbackURL: "https://creator-ally.onrender.com/auth/twitter/callback"
 },
     async (token, tokenSecret, profile, cb) => {
         try {
